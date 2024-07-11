@@ -1,0 +1,1114 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* CSS Reset */
+:root {
+    --light-purple: #E0AAFF;
+    --medium-purple: #C77DFF;
+    --dark-purple: #9D4EDD;
+    --deep-purple: #7B2CBF;
+    --light-gray: #F8F9FA;
+    --gray: #CED4DA;
+    --dark-gray: #6C757D;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding-top: 60px;
+    font-family: "Manrope", sans-serif;
+}
+
+/* Application Header */
+.application_header {
+    font-family: "Spline Sans", sans-serif;
+    display: flex;
+    position: fixed;
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 60px;
+    background-image: url('/static/images/ApplicationFormBGV2blurry.png');
+    background-color: #F8F9FA;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    box-shadow: 3px 3px 5px #abb4bb1a;
+}
+
+/* General Button Style */
+.button_version_1 {
+    display: inline-block;
+    width: 15rem;
+    padding: 8px 10px;
+    margin: 10px;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
+    background-color: #F8F9FAE6;
+    color: #343A40;
+    font-size: 0.9rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.button_version_1:hover {
+    color: var(--light-gray);
+    background-color: var(--dark-purple);
+    border-color: var(--dark-purple);
+}
+
+.button_version_1:active {
+    color: #343A40;
+    background-color: var(--light-purple);
+    border-color: var(--light-purple);
+}
+
+/* Updated CSS for Navigation Links */
+
+.nav-section {
+    text-align: center; /* Center align the navigation links */
+    margin-top: 20px; /* Adjust top margin as needed */
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    display: inline-block;
+    margin: 0 auto; /* Center the list horizontally */
+}
+
+.nav-links li {
+    display: inline-block;
+    margin: 10px; /* Adjust margin between links */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #5A189A;
+    padding: 10px 20px;
+    border: 1px solid #5A189A;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+    background-color: #5A189A;
+    color: #fff;
+}
+
+
+/* styles.css */
+
+/* Navigation Links */
+.navigation-links {
+    background-color: #f2f2f2;
+    padding: 10px 0; /* Adjust padding as needed */
+}
+
+.navigation-links ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center; /* Center align the links */
+}
+
+.navigation-links ul li {
+    display: inline-block;
+    margin-right: 10px; /* Adjust margin between links */
+}
+
+.navigation-links ul li a {
+    text-decoration: none;
+    color: #333; /* Link color */
+    padding: 10px 15px; /* Adjust padding as needed */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navigation-links ul li a:hover {
+    background-color: #ddd; /* Hover background color */
+}
+
+/* Landing Page Styles */
+.landing_page_header {
+    font-family: "Spline Sans", sans-serif;
+    display: flex;
+    position: fixed;
+    justify-content: flex-end;
+    padding: 30px 10%;
+    align-items: center;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 60px;
+    background-color: transparent;
+}
+
+/* CSS */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 100px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Adjust spacing */
+}
+
+.site-title {
+    font-size: 24px; /* Adjust font size */
+    color: #333; /* Adjust text color */
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px);
+    background-color: transparent;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.left-side {
+    z-index: 50;
+    display: flex;
+    flex: 0 0 calc(50% - 40px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 40px 40px 100px;
+    margin: 20px;
+    text-align: left;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.main-title {
+    font-family: "Work Sans", sans-serif;
+    font-size: 3.7rem;
+    color: #10002B;
+    margin-bottom: 10px;
+}
+
+.right-side {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.laptop_girl {
+    z-index: 40;
+    max-width: 110%;
+    height: auto;
+    box-sizing: border-box;
+    object-fit: contain;
+}
+
+/* Form Section */
+.form-section {
+    border: 2px solid #6C757D;
+    border-radius: 20px;
+    width: 60%;
+    margin: 30px auto;
+    background-color: #F8F9FA99;
+    overflow: auto;
+    padding-bottom: 5px;
+    box-shadow: 2px 2px 5px #6C757D66,
+                -2px 2px 5px #6C757D66;
+}
+
+.form-section p {
+    padding: 3px;
+    margin: 10px 5px;
+    font-size: medium;
+}
+
+.form-section input[type="text"],
+.form-section input[type="number"],
+.form-section input[type="date"],
+.form-section input[type="email"],
+.form-section textarea,
+.form-section select,
+.form-section input[type="checkbox"] {
+    background-color: #F8F9FAE6;
+    outline: none;
+    padding: 8px 10px;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: medium;
+    color: #343A40;
+}
+
+.form-section input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #BDBDBD;
+    border-radius: 3px;
+    background-color: #F8F9FAE6;
+    outline: none;
+    position: relative;
+}
+
+.form-section input[type="checkbox"]:checked::before {
+    content: "✔";
+    color: #C77DFF;
+    display: block;
+    position: absolute;
+    transform: translate(-65%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 10px;
+}
+
+.form-section input[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+
+.form-section input[type="text"]:focus,
+.form-section input[type="number"]:focus,
+.form-section input[type="date"]:focus,
+.form-section input[type="email"]:focus,
+.form-section textarea:focus,
+.form-section input[type="checkbox"]:focus {
+    box-sizing: border-box;
+    border-color: #C77DFF;
+    border-width: 1.5px;
+}
+
+.section-title-container {
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.section-title {
+    font-weight: 700;
+    margin: 15px 25px;
+}
+
+.all-inputs-container {
+    margin: 15px 25px;
+    font-size: 0.9rem;
+}
+
+/* Grid Inputs Container */
+.grid-inputs-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+    grid-template-rows: auto; /* Automatically adjust rows */
+    gap: 10px; /* Adjust gap between grid items */
+}
+
+/* Name Div */
+.name-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+/* Address Div */
+.address-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+/* Contacts Div */
+.contacts-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+/* Criminal Conviction Checkbox Div */
+.criminal-conviction-status-checkbox-div {
+    display: flex;
+    padding: 3px;
+    margin: 5px;
+    color: #495057;
+    align-items: center;
+}
+
+.reason_for_conviction_div {
+    display: none;
+}
+
+.criminal-conviction-status-checkbox-div input:checked ~ .reason_for_conviction_div {
+    display: flex;
+}
+
+/* Radio Buttons */
+.radio-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.radio-buttons input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid var(--dark-gray);
+    border-radius: 80%;
+    cursor: pointer;
+}
+
+.radio-buttons input[type="radio"]:checked {
+    background-color: var(--dark-purple);
+    border-color: var(--dark-purple);
+}
+
+.radio-buttons label {
+    font-size: medium;
+    color: #495057;
+    cursor: pointer;
+}
+
+.radio-buttons .no-pad {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Drop Down For Re-arrangements */
+.select-div {
+    padding: 5px;
+    margin: 5px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* `children_info` */
+.children_info {
+    border: 2px solid #6C757D;
+    border-radius: 20px;
+    width: 60%;
+    margin: 30px auto;
+    background-color: #F8F9FA99;
+    overflow: auto;
+    padding-bottom: 5px;
+    box-shadow: 2px 2px 5px #6C757D66,
+                -2px 2px 5px #6C757D66;
+}
+
+.children_info p {
+    padding: 3px;
+    margin: 10px 5px;
+    font-size: medium;
+}
+
+.children_info input[type="text"],
+.children_info input[type="number"],
+.children_info input[type="date"],
+.children_info input[type="email"],
+.children_info textarea,
+.children_info select,
+.children_info input[type="checkbox"] {
+    background-color: #F8F9FAE6;
+    outline: none;
+    padding: 8px 10px;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: medium;
+    color: #343A40;
+}
+
+.children_info input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #BDBDBD;
+    border-radius: 3px;
+    background-color: #F8F9FAE6;
+    outline: none;
+    position: relative;
+}
+
+.children_info input[type="checkbox"]:checked::before {
+    content: "✔";
+    color: #C77DFF;
+    display: block;
+    position: absolute;
+    transform: translate(-65%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 10px;
+}
+
+.children_info input[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+
+.children_info input[type="text"]:focus,
+.children_info input[type="number"]:focus,
+.children_info input[type="date"]:focus,
+.children_info input[type="email"]:focus,
+.children_info textarea:focus,
+.children_info input[type="checkbox"]:focus {
+    box-sizing: border-box;
+    border-color: #C77DFF;
+    border-width: 1.5px;
+}
+
+.children_info .section-title-container {
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.children_info .section-title {
+    font-weight: 700;
+    margin: 15px 25px;
+}
+
+.children_info .all-inputs-container {
+    margin: 15px 25px;
+    font-size: 0.9rem;
+}
+
+.children_info .grid-inputs-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+}
+
+.children_info .name-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.children_info .address-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.children_info .contacts-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.children_info .criminal-conviction-status-checkbox-div {
+    display: flex;
+    padding: 3px;
+    margin: 5px;
+    color: #495057;
+    align-items: center;
+}
+
+.children_info .reason_for_conviction_div {
+    display: none;
+}
+
+.children_info .criminal-conviction-status-checkbox-div input:checked ~ .reason_for_conviction_div {
+    display: flex;
+}
+
+.children_info .radio-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.children_info .radio-buttons input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid var(--dark-gray);
+    border-radius: 80%;
+    cursor: pointer;
+}
+
+.children_info .radio-buttons input[type="radio"]:checked {
+    background-color: var(--dark-purple);
+    border-color: var(--dark-purple);
+}
+
+.children_info .radio-buttons label {
+    font-size: medium;
+    color: #495057;
+    cursor: pointer;
+}
+
+.children_info .radio-buttons .no-pad {
+    margin: 0px;
+    padding: 0px;
+}
+
+.children_info .select-div {
+    padding: 5px;
+    margin: 5px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Real and Personal Assets */
+.real_assets_personal_assets {
+    border: 2px solid #6C757D;
+    border-radius: 20px;
+    width: 60%;
+    margin: 30px auto;
+    background-color: #F8F9FA99;
+    overflow: auto;
+    padding-bottom: 5px;
+    box-shadow: 2px 2px 5px #6C757D66,
+                -2px 2px 5px #6C757D66;
+}
+
+.real_assets_personal_assets p {
+    padding: 3px;
+    margin: 10px 5px;
+    font-size: medium;
+}
+
+.real_assets_personal_assets input[type="text"],
+.real_assets_personal_assets input[type="number"],
+.real_assets_personal_assets input[type="date"],
+.real_assets_personal_assets input[type="email"],
+.real_assets_personal_assets textarea,
+.real_assets_personal_assets select,
+.real_assets_personal_assets input[type="checkbox"] {
+    background-color: #F8F9FAE6;
+    outline: none;
+    padding: 8px 10px;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: medium;
+    color: #343A40;
+}
+
+.real_assets_personal_assets input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #BDBDBD;
+    border-radius: 3px;
+    background-color: #F8F9FAE6;
+    outline: none;
+    position: relative;
+}
+
+.real_assets_personal_assets input[type="checkbox"]:checked::before {
+    content: "✔";
+    color: #C77DFF;
+    display: block;
+    position: absolute;
+    transform: translate(-65%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 10px;
+}
+
+.real_assets_personal_assets input[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+
+.real_assets_personal_assets input[type="text"]:focus,
+.real_assets_personal_assets input[type="number"]:focus,
+.real_assets_personal_assets input[type="date"]:focus,
+.real_assets_personal_assets input[type="email"]:focus,
+.real_assets_personal_assets textarea:focus,
+.real_assets_personal_assets input[type="checkbox"]:focus {
+    box-sizing: border-box;
+    border-color: #C77DFF;
+    border-width: 1.5px;
+}
+
+.real_assets_personal_assets .section-title-container {
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.real_assets_personal_assets .section-title {
+    font-weight: 700;
+    margin: 15px 25px;
+}
+
+.real_assets_personal_assets .all-inputs-container {
+    margin: 15px 25px;
+    font-size: 0.9rem;
+}
+
+.real_assets_personal_assets .grid-inputs-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+}
+
+.real_assets_personal_assets .name-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.real_assets_personal_assets .address-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.real_assets_personal_assets .contacts-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.real_assets_personal_assets .criminal-conviction-status-checkbox-div {
+    display: flex;
+    padding: 3px;
+    margin: 5px;
+    color: #495057;
+    align-items: center;
+}
+
+.real_assets_personal_assets .reason_for_conviction_div {
+    display: none;
+}
+
+.real_assets_personal_assets .criminal-conviction-status-checkbox-div input:checked ~ .reason_for_conviction_div {
+    display: flex;
+}
+
+.real_assets_personal_assets .radio-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.real_assets_personal_assets .radio-buttons input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid var(--dark-gray);
+    border-radius: 80%;
+    cursor: pointer;
+}
+
+.real_assets_personal_assets .radio-buttons input[type="radio"]:checked {
+    background-color: var(--dark-purple);
+    border-color: var(--dark-purple);
+}
+
+.real_assets_personal_assets .radio-buttons label {
+    font-size: medium;
+    color: #495057;
+    cursor: pointer;
+}
+
+.real_assets_personal_assets .radio-buttons .no-pad {
+    margin: 0px;
+    padding: 0px;
+}
+
+.real_assets_personal_assets .select-div {
+    padding: 5px;
+    margin: 5px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Liabilities */
+.liabilities {
+    border: 2px solid #6C757D;
+    border-radius: 20px;
+    width: 60%;
+    margin: 30px auto;
+    background-color: #F8F9FA99;
+    overflow: auto;
+    padding-bottom: 5px;
+    box-shadow: 2px 2px 5px #6C757D66,
+                -2px 2px 5px #6C757D66;
+}
+
+.liabilities p {
+    padding: 3px;
+    margin: 10px 5px;
+    font-size: medium;
+}
+
+.liabilities input[type="text"],
+.liabilities input[type="number"],
+.liabilities input[type="date"],
+.liabilities input[type="email"],
+.liabilities textarea,
+.liabilities select,
+.liabilities input[type="checkbox"] {
+    background-color: #F8F9FAE6;
+    outline: none;
+    padding: 8px 10px;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: medium;
+    color: #343A40;
+}
+
+.liabilities input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #BDBDBD;
+    border-radius: 3px;
+    background-color: #F8F9FAE6;
+    outline: none;
+    position: relative;
+}
+
+.liabilities input[type="checkbox"]:checked::before {
+    content: "✔";
+    color: #C77DFF;
+    display: block;
+    position: absolute;
+    transform: translate(-65%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 10px;
+}
+
+.liabilities input[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+
+.liabilities input[type="text"]:focus,
+.liabilities input[type="number"]:focus,
+.liabilities input[type="date"]:focus,
+.liabilities input[type="email"]:focus,
+.liabilities textarea:focus,
+.liabilities input[type="checkbox"]:focus {
+    box-sizing: border-box;
+    border-color: #C77DFF;
+    border-width: 1.5px;
+}
+
+.liabilities .section-title-container {
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.liabilities .section-title {
+    font-weight: 700;
+    margin: 15px 25px;
+}
+
+.liabilities .all-inputs-container {
+    margin: 15px 25px;
+    font-size: 0.9rem;
+}
+
+.liabilities .grid-inputs-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+}
+
+.liabilities .name-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.liabilities .address-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.liabilities .contacts-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.liabilities .criminal-conviction-status-checkbox-div {
+    display: flex;
+    padding: 3px;
+    margin: 5px;
+    color: #495057;
+    align-items: center;
+}
+
+.liabilities .reason_for_conviction_div {
+    display: none;
+}
+
+.liabilities .criminal-conviction-status-checkbox-div input:checked ~ .reason_for_conviction_div {
+    display: flex;
+}
+
+.liabilities .radio-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.liabilities .radio-buttons input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid var(--dark-gray);
+    border-radius: 80%;
+    cursor: pointer;
+}
+
+.liabilities .radio-buttons input[type="radio"]:checked {
+    background-color: var(--dark-purple);
+    border-color: var(--dark-purple);
+}
+
+.liabilities .radio-buttons label {
+    font-size: medium;
+    color: #495057;
+    cursor: pointer;
+}
+
+.liabilities .radio-buttons .no-pad {
+    margin: 0px;
+    padding: 0px;
+}
+
+.liabilities .select-div {
+    padding: 5px;
+    margin: 5px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Last Page */
+.last_page {
+    border: 2px solid #6C757D;
+    border-radius: 20px;
+    width: 60%;
+    margin: 30px auto;
+    background-color: #F8F9FA99;
+    overflow: auto;
+    padding-bottom: 5px;
+    box-shadow: 2px 2px 5px #6C757D66,
+                -2px 2px 5px #6C757D66;
+}
+
+.last_page p {
+    padding: 3px;
+    margin: 10px 5px;
+    font-size: medium;
+}
+
+.last_page input[type="text"],
+.last_page input[type="number"],
+.last_page input[type="date"],
+.last_page input[type="email"],
+.last_page textarea,
+.last_page select,
+.last_page input[type="checkbox"] {
+    background-color: #F8F9FAE6;
+    outline: none;
+    padding: 8px 10px;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: medium;
+    color: #343A40;
+}
+
+.last_page input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #BDBDBD;
+    border-radius: 3px;
+    background-color: #F8F9FAE6;
+    outline: none;
+    position: relative;
+}
+
+.last_page input[type="checkbox"]:checked::before {
+    content: "✔";
+    color: #C77DFF;
+    display: block;
+    position: absolute;
+    transform: translate(-65%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 10px;
+}
+
+.last_page input[type="checkbox"]:checked::before {
+    opacity: 1;
+}
+
+.last_page input[type="text"]:focus,
+.last_page input[type="number"]:focus,
+.last_page input[type="date"]:focus,
+.last_page input[type="email"]:focus,
+.last_page textarea:focus,
+.last_page input[type="checkbox"]:focus {
+    box-sizing: border-box;
+    border-color: #C77DFF;
+    border-width: 1.5px;
+}
+
+.last_page .section-title-container {
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.last_page .section-title {
+    font-weight: 700;
+    margin: 15px 25px;
+}
+
+.last_page .all-inputs-container {
+    margin: 15px 25px;
+    font-size: 0.9rem;
+}
+
+.last_page .grid-inputs-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+}
+
+.last_page .name-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.last_page .address-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.last_page .contacts-div {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.last_page .criminal-conviction-status-checkbox-div {
+    display: flex;
+    padding: 3px;
+    margin: 5px;
+    color: #495057;
+    align-items: center;
+}
+
+.last_page .reason_for_conviction_div {
+    display: none;
+}
+
+.last_page .criminal-conviction-status-checkbox-div input:checked ~ .reason_for_conviction_div {
+    display: flex;
+}
+
+.last_page .radio-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.last_page .radio-buttons input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid var(--dark-gray);
+    border-radius: 80%;
+    cursor: pointer;
+}
+
+.last_page .radio-buttons input[type="radio"]:checked {
+    background-color: var(--dark-purple);
+    border-color: var(--dark-purple);
+}
+
+.last_page .radio-buttons label {
+    font-size: medium;
+    color: #495057;
+    cursor: pointer;
+}
+
+.last_page .radio-buttons .no-pad {
+    margin: 0px;
+    padding: 0px;
+}
+
+.last_page .select-div {
+    padding: 5px;
+    margin: 5px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.declarant-fields {
+    margin-bottom: 20px;
+}
+
