@@ -1,14 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM fully loaded");
-    
-    // Generate a single declaration ID for the entire form
-    const declarationId = generateDeclarationID();
-    
-    // Set the generated ID for all declaration ID fields
-    const declarationIdFields = document.querySelectorAll('[name="declarant_id"]');
-    declarationIdFields.forEach(field => {
-        field.value = declarationId;
-    });
+
 
     // Setup form submission
     setupFormSubmission();
@@ -18,144 +10,104 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup home page link
     setupHomePageLink();
-
-    // Setup compute button
     setupComputeButton();
 
-    // Setup submit buttons
-    setupSubmitButtons();
+    
 });
-
-function submitForm() {
-    const formData = new FormData(document.getElementById('appForm'));
-
-    // Check if there are child entries
-    const childNames = document.querySelectorAll('input[name="child_name[]"]');
-    let hasChildData = false;
-
-    childNames.forEach(nameField => {
-        if (nameField.value.trim() !== '') {
-            hasChildData = true;
-        }
-    });
-
-    // Add child data to formData if valid entries exist
-    if (hasChildData) {
-        formData.append('hasChildData', 'true');
-    } else {
-        formData.append('hasChildData', 'false');
-    }
-
-    // Perform the fetch request with formData
-    fetch('/application-form', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        console.log("Response status:", response.status);
-        if (!response.ok) {
-            throw new Error('Server responded with an error');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        document.getElementById('appForm').reset();
-        alert('Form submitted successfully!');
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('Error submitting form. Please check the console for more details.');
-    });
-}
-
-// Setup form submission
-function setupFormSubmission() {
-    const form = document.getElementById('appForm');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitForm();
-        });
-    }
-}
-
-// Call setup function on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
-    setupFormSubmission();
-});
-function setupSubmitButtons() {
-    const submitButtons = [
-        'declarant-submit',
-        'children-submit',
-        'real-assets-submit',
-        'personal-assets-submit',
-        'liabilities-submit',
-        'confirm-submission'
-    ];
-
-    submitButtons.forEach(buttonId => {
-        const button = document.getElementById(buttonId);
-        if (button) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                submitForm();
-            });
-        }
-    });
-}
-
-
-function setupFormSubmission() {
-    const form = document.getElementById('appForm');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitForm();
-        });
-    }
-}
-
-function submitForm() {
-    const form = document.getElementById('appForm');
-    const formData = new FormData(form);
-    const originalDeclarantId = document.getElementById('declarant_id').value;
-
-    console.log("Submitting form data:");
-    for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-    }
-
-    fetch('/application-form', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        console.log("Response status:", response.status);
-        if (!response.ok) {
-            throw new Error('Server responded with an error');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        form.reset();
-        // Restore the original declarant ID
-        const declarantIdFields = document.querySelectorAll('[name="declarant_id"]');
-        declarantIdFields.forEach(field => {
-            field.value = originalDeclarantId;
-        });
-        alert('Form submitted successfully!');
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('Error submitting form. Please check the console for more details.');
-    });
-}
-
 
 function generateDeclarationID() {
     return 'DECL-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+}
+
+
+function setupFormSubmission() {
+    const form = document.getElementById('declarant_info_form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect all form data
+            const formData = new FormData(form);
+            
+            // Add data from dynamic fields
+            addDynamicFieldsToFormData(formData);
+            
+            // Send data to server
+            fetch('/submit_declaration', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Declaration submitted successfully!');
+                    console.log('Server response:', data);
+                    form.reset();
+                    document.getElementById('declarant_id').value = generateDeclarationID();
+                    // Clear dynamic fields
+                    clearDynamicFields();
+                } else {
+                    alert('Error submitting form: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error submitting form. Please try again.');
+            });
+        });
+    }
+}
+
+function addDynamicFieldsToFormData(formData) {
+    // Add children info
+    const childEntries = document.querySelectorAll('.child-entry');
+    childEntries.forEach((entry, index) => {
+        formData.append(`child_${index}_name`, entry.querySelector('[name="child_name[]"]').value);
+        formData.append(`child_${index}_dob`, entry.querySelector('[name="child_dob[]"]').value);
+        formData.append(`child_${index}_age`, entry.querySelector('[name="child_age[]"]').value);
+    });
+
+    // Add real assets
+    const realAssetEntries = document.querySelectorAll('.real-assets-fields');
+    realAssetEntries.forEach((entry, index) => {
+        formData.append(`real_asset_${index}_desc`, entry.querySelector('[name="real_asset_desc[]"]').value);
+        formData.append(`real_asset_${index}_kind`, entry.querySelector('[name="real_asset_kind[]"]').value);
+        formData.append(`real_asset_${index}_loc`, entry.querySelector('[name="real_asset_loc[]"]').value);
+        formData.append(`real_asset_${index}_assessed_value`, entry.querySelector('[name="real_asset_area[]"]').value);
+        formData.append(`real_asset_${index}_market_value`, entry.querySelector('[name="real_asset_market_val[]"]').value);
+        formData.append(`real_asset_${index}_year_acquired`, entry.querySelector('[name="real_asset_year_acq[]"]').value);
+        formData.append(`real_asset_${index}_mode_acquisition`, entry.querySelector('[name="real_asset_mode_acq[]"]').value);
+        formData.append(`real_asset_${index}_acquisition_cost`, entry.querySelector('[name="real_asset_acq_cost[]"]').value);
+    });
+
+    // Add personal assets
+    const personalAssetEntries = document.querySelectorAll('.personal-asset-entry');
+    personalAssetEntries.forEach((entry, index) => {
+        formData.append(`personal_asset_${index}_desc`, entry.querySelector('[name="personal_asset_desc[]"]').value);
+        formData.append(`personal_asset_${index}_year_acquired`, entry.querySelector('[name="personal_asset_year_acq[]"]').value);
+        formData.append(`personal_asset_${index}_acquisition_cost`, entry.querySelector('[name="personal_asset_acq_cost[]"]').value);
+    });
+
+    // Add liabilities
+    const liabilityEntries = document.querySelectorAll('.liability-entry');
+    liabilityEntries.forEach((entry, index) => {
+        formData.append(`liability_${index}_desc`, entry.querySelector('[name="liabilities_desc[]"]').value);
+        formData.append(`liability_${index}_creditor`, entry.querySelector('[name="liabilities_amount[]"]').value);
+        formData.append(`liability_${index}_balance`, entry.querySelector('[name="liabilities_date[]"]').value);
+    });
+
+    // Add subtotals and totals
+    formData.append('R_Asset_Subtotal', document.getElementById('R_Asset_Subtotal').value);
+    formData.append('P_Asset_Subtotal', document.getElementById('P_Asset_Subtotal').value);
+    formData.append('total_assets', document.getElementById('total_assets').value);
+    formData.append('total_liabilities', document.getElementById('total_liabilities').value);
+    formData.append('net_worth', document.getElementById('net_worth').value);
+}
+
+function clearDynamicFields() {
+    document.querySelectorAll('.child-entry, .real-assets-fields, .personal-asset-entry, .liability-entry').forEach(entry => {
+        entry.remove();
+    });
 }
 
 
@@ -256,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function addRealAsset() {
     const realAssetsSection = document.getElementById('real-assets');
     const allInputsContainer = realAssetsSection.querySelector('.all-inputs-container');
+    
     // Create a new real asset entry container
     const newRealAssetEntry = document.createElement('div');
     newRealAssetEntry.classList.add('grid-inputs-container', 'real-assets-fields');
@@ -499,22 +452,27 @@ function setupComputeButton() {
 
 function calculateSubtotalsAndTotals() {
     console.log("Calculating subtotals and totals");
-    
+
+    // Calculate real assets subtotal
     const realAssetsCost = Array.from(document.getElementsByName('real_asset_acq_cost[]'))
         .reduce((sum, input) => sum + (parseFloat(input.value) || 0), 0);
     console.log("Real assets cost:", realAssetsCost);
     
+    // Calculate personal assets subtotal
     const personalAssetsCost = Array.from(document.getElementsByName('personal_asset_acq_cost[]'))
         .reduce((sum, input) => sum + (parseFloat(input.value) || 0), 0);
     console.log("Personal assets cost:", personalAssetsCost);
     
+    // Calculate total liabilities
     const totalLiabilities = Array.from(document.getElementsByName('liabilities_date[]'))
         .reduce((sum, input) => sum + (parseFloat(input.value) || 0), 0);
     console.log("Total liabilities:", totalLiabilities);
 
+    // Calculate total assets and net worth
     const totalAssets = realAssetsCost + personalAssetsCost;
     const netWorth = totalAssets - totalLiabilities;
 
+    // Update HTML elements with calculated values
     document.getElementById('R_Asset_Subtotal').value = realAssetsCost.toFixed(2);
     document.getElementById('P_Asset_Subtotal').value = personalAssetsCost.toFixed(2);
     document.getElementById('total_assets').value = totalAssets.toFixed(2);
