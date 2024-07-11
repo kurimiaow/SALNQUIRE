@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Declarant Information</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="#declarant_info">Declarant Information</a></li>
+                <li><a href="#children_info">Children Information</a></li>
+                <li><a href="#real_assets">Real Assets</a></li>
+                <li><a href="#personal_assets">Personal Assets</a></li>
+                <li><a href="#liabilities">Liabilities</a></li>
+                <li><a href="#subtotals_totals">Subtotals and Totals</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Update Declarant Information</h1>
+        <form action="{{ url_for('update_subtotals_totals', sss_number=applicant_data['sss_number']) }}" method="post">
+            
+            <!-- Declarant Information Section -->
+            <section id="declarant_info">
+                <h2>Declarant Information</h2>
+
+                <label for="declarant_id">Declarant ID</label>
+                <input type="text" id="declarant_id" name="declarant_id" value="{{ declarant_data['declarant_id'] }}" required>
+
+                <label for="declarant_name">Declarant Name</label>
+                <input type="text" id="declarant_name" name="declarant_name" value="{{ declarant_data['declarant_name'] }}" required>
+
+                <label for="declarant_address">Declarant Address</label>
+                <input type="text" id="declarant_address" name="declarant_address" value="{{ declarant_data['declarant_address'] }}" required>
+
+                <label for="declarant_phone">Declarant Phone</label>
+                <input type="text" id="declarant_phone" name="declarant_phone" value="{{ declarant_data['declarant_phone'] }}" required>
+            </section>
+
+            <!-- Children Information Section -->
+            <section id="children_info">
+                <h2>Children Information</h2>
+
+                <!-- Example fields, adjust as per your schema -->
+                {% for child in children_data %}
+                <div class="child-info">
+                    <label for="child_name_{{ loop.index }}">Child Name {{ loop.index }}</label>
+                    <input type="text" id="child_name_{{ loop.index }}" name="child_name[]" value="{{ child['child_name'] }}" required>
+
+                    <label for="child_dob_{{ loop.index }}">Child Date of Birth {{ loop.index }}</label>
+                    <input type="date" id="child_dob_{{ loop.index }}" name="child_dob[]" value="{{ child['child_dob'] }}" required>
+                </div>
+                {% endfor %}
+            </section>
+
+            <!-- Real Assets Section -->
+            <section id="real_assets">
+                <h2>Real Assets</h2>
+
+                <!-- Example fields, adjust as per your schema -->
+                {% for asset in real_assets_data %}
+                <div class="asset-info">
+                    <label for="asset_name_{{ loop.index }}">Asset Name {{ loop.index }}</label>
+                    <input type="text" id="asset_name_{{ loop.index }}" name="asset_name[]" value="{{ asset['asset_name'] }}" required>
+
+                    <label for="asset_value_{{ loop.index }}">Asset Value {{ loop.index }}</label>
+                    <input type="number" id="asset_value_{{ loop.index }}" name="asset_value[]" value="{{ asset['asset_value'] }}" required>
+                </div>
+                {% endfor %}
+            </section>
+
+            <!-- Personal Assets Section -->
+            <section id="personal_assets">
+                <h2>Personal Assets</h2>
+
+                <!-- Example fields, adjust as per your schema -->
+                {% for asset in personal_assets_data %}
+                <div class="asset-info">
+                    <label for="personal_asset_name_{{ loop.index }}">Personal Asset Name {{ loop.index }}</label>
+                    <input type="text" id="personal_asset_name_{{ loop.index }}" name="personal_asset_name[]" value="{{ asset['personal_asset_name'] }}" required>
+
+                    <label for="personal_asset_value_{{ loop.index }}">Personal Asset Value {{ loop.index }}</label>
+                    <input type="number" id="personal_asset_value_{{ loop.index }}" name="personal_asset_value[]" value="{{ asset['personal_asset_value'] }}" required>
+                </div>
+                {% endfor %}
+            </section>
+
+            <!-- Liabilities Section -->
+            <section id="liabilities">
+                <h2>Liabilities</h2>
+
+                <!-- Example fields, adjust as per your schema -->
+                {% for liability in liabilities_data %}
+                <div class="liability-info">
+                    <label for="liability_description_{{ loop.index }}">Liability Description {{ loop.index }}</label>
+                    <input type="text" id="liability_description_{{ loop.index }}" name="liability_description[]" value="{{ liability['liability_description'] }}" required>
+
+                    <label for="liability_amount_{{ loop.index }}">Liability Amount {{ loop.index }}</label>
+                    <input type="number" id="liability_amount_{{ loop.index }}" name="liability_amount[]" value="{{ liability['liability_amount'] }}" required>
+                </div>
+                {% endfor %}
+            </section>
+
+            <!-- Subtotals and Totals Section -->
+            <section id="subtotals_totals">
+                <h2>Subtotals and Totals</h2>
+
+                <label for="subtotals">Subtotals</label>
+                <input type="number" id="subtotals" name="subtotals" value="{{ subtotals_data['subtotals'] }}" required>
+
+                <label for="totals">Totals</label>
+                <input type="number" id="totals" name="totals" value="{{ subtotals_data['totals'] }}" required>
+            </section>
+
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>
