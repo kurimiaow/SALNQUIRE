@@ -107,7 +107,7 @@
 </style>
 {% endblock %}
 
-{% block body %}
+{% block content %}
 <header class="landing_page_header view_database_header">
     <img src="/static/images/logo.png" alt="Logo" class="logo">
     <nav>
@@ -130,146 +130,162 @@
 <div class="container">
     <section id="declarantInfo">
         <h2>Declarant Information</h2>
+        {% if declarants %}
         <table class="table">
             <thead>
                 <tr>
-                    <th>Field</th>
-                    <th>Value</th>
+                    <th>Declarant ID</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Agency</th>
+                    <th>Office Address</th>
+                    <th>Spouse Name</th>
+                    <th>Spouse Position</th>
+                    <th>Spouse Agency</th>
+                    <th>Spouse Office Address</th>
                 </tr>
             </thead>
             <tbody>
+                {% for declarant in declarants %}
                 <tr>
-                    <td>First Name</td>
-                    <td>{{ declarant[1] }}</td>
+                    <td>{{ declarant['declarant_id'] }}</td>
+                    <td>{{ declarant['declarant_name'] }}</td>
+                    <td>{{ declarant['declarant_position'] }}</td>
+                    <td>{{ declarant['declarant_agency'] }}</td>
+                    <td>{{ declarant['declarant_office_address'] }}</td>
+                    <td>{{ declarant['spouse_name'] }}</td>
+                    <td>{{ declarant['spouse_position'] }}</td>
+                    <td>{{ declarant['spouse_agency'] }}</td>
+                    <td>{{ declarant['spouse_office_address'] }}</td>
                 </tr>
-                <tr>
-                    <td>Last Name</td>
-                    <td>{{ declarant[2] }}</td>
-                </tr>
-                <tr>
-                    <td>Date of Birth</td>
-                    <td>{{ declarant[3] }}</td>
-                </tr>
-                <tr>
-                    <td>Address</td>
-                    <td>{{ declarant[4] }}</td>
-                </tr>
-                <tr>
-                    <td>Phone Number</td>
-                    <td>{{ declarant[5] }}</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <p>No declarant information found.</p>
+        {% endif %}
     </section>
 
     <section id="childrenInfo">
         <h2>Children Information</h2>
+        {% if children %}
         <table class="table">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Declarant ID</th>
+                    <th>Child Name</th>
                     <th>Date of Birth</th>
+                    <th>Age</th>
                 </tr>
             </thead>
             <tbody>
                 {% for child in children %}
-                    <tr>
-                        <td>{{ child[1] }}</td>
-                        <td>{{ child[2] }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ child['declarant_id'] }}</td>
+                    <td>{{ child['child_name'] }}</td>
+                    <td>{{ child['child_dob'] }}</td>
+                    <td>{{ child['child_age'] }}</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <p>No children information found.</p>
+        {% endif %}
     </section>
 
     <section id="realAssets">
-        <h2>Real Assets</h2>
+        <h2>Real Assets Information</h2>
+        {% if real_assets %}
         <table class="table">
             <thead>
                 <tr>
-                    <th>Asset Description</th>
-                    <th>Value</th>
+                    <th>Declarant ID</th>
+                    <th>Description</th>
+                    <th>Kind</th>
+                    <th>Location</th>
+                    <th>Market Value</th>
+                    <th>Year Acquired</th>
+                    <th>Mode of Acquisition</th>
+                    <th>Acquisition Cost</th>
                 </tr>
             </thead>
             <tbody>
                 {% for asset in real_assets %}
-                    <tr>
-                        <td>{{ asset[1] }}</td>
-                        <td>{{ asset[2] }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ asset['declarant_id'] }}</td>
+                    <td>{{ asset['asset_description'] }}</td>
+                    <td>{{ asset['asset_kind'] }}</td>
+                    <td>{{ asset['asset_location'] }}</td>
+                    <td>{{ asset['asset_market_value'] }}</td>
+                    <td>{{ asset['asset_year_acquired'] }}</td>
+                    <td>{{ asset['asset_mode_of_acquisition'] }}</td>
+                    <td>{{ asset['asset_acquisition_cost'] }}</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <p>No real assets information found.</p>
+        {% endif %}
     </section>
 
     <section id="personalAssets">
-        <h2>Personal Assets</h2>
+        <h2>Personal Assets Information</h2>
+        {% if personal_assets %}
         <table class="table">
             <thead>
                 <tr>
-                    <th>Asset Description</th>
-                    <th>Value</th>
+                    <th>Declarant ID</th>
+                    <th>Description</th>
+                    <th>Year Acquired</th>
+                    <th>Acquisition Cost</th>
                 </tr>
             </thead>
             <tbody>
                 {% for asset in personal_assets %}
-                    <tr>
-                        <td>{{ asset[1] }}</td>
-                        <td>{{ asset[2] }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ asset['declarant_id'] }}</td>
+                    <td>{{ asset['personal_asset_description'] }}</td>
+                    <td>{{ asset['personal_asset_year_acquired'] }}</td>
+                    <td>{{ asset['personal_asset_acquisition_cost'] }}</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <p>No personal assets information found.</p>
+        {% endif %}
     </section>
 
     <section id="liabilities">
-        <h2>Liabilities</h2>
+        <h2>Liabilities Information</h2>
+        {% if liabilities %}
         <table class="table">
             <thead>
                 <tr>
+                    <th>Declarant ID</th>
                     <th>Description</th>
-                    <th>Amount</th>
+                    <th>Creditor</th>
+                    <th>Balance</th>
                 </tr>
             </thead>
             <tbody>
                 {% for liability in liabilities %}
-                    <tr>
-                        <td>{{ liability[1] }}</td>
-                        <td>{{ liability[2] }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ liability['declarant_id'] }}</td>
+                    <td>{{ liability['liability_description'] }}</td>
+                    <td>{{ liability['liability_creditor'] }}</td>
+                    <td>{{ liability['liability_balance'] }}</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <p>No liabilities information found.</p>
+        {% endif %}
     </section>
 
-    <section id="subtotalsTotals">
-        <h2>Subtotals and Totals</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Total Real Assets</td>
-                    <td>{{ total_real_assets }}</td>
-                </tr>
-                <tr>
-                    <td>Total Personal Assets</td>
-                    <td>{{ total_personal_assets }}</td>
-                </tr>
-                <tr>
-                    <td>Total Liabilities</td>
-                    <td>{{ total_liabilities }}</td>
-                </tr>
-                <tr>
-                    <td>Net Worth</td>
-                    <td>{{ net_worth }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+    <!-- Add subtotal and total sections here -->
 </div>
 {% endblock %}
