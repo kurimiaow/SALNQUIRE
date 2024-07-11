@@ -19,7 +19,7 @@
         </ul>
     </nav>
 
-    <form id="appForm" action="{{ url_for('application_form') }}" method="POST">
+    <form action="{{ url_for('submit_declaration') }}" method="post">
 <!-- Declarant Information Section -->
 <section id="declarant-info" class="form-section">
     <div class="section-title-container">
@@ -29,7 +29,7 @@
         <!-- Declaration ID Field -->
         <div class="input-box">
             <label for="declarant_id" class="input-label">Declaration ID</label>
-            <input type="text" id="declarant_id" name="declarant_id" readonly fdpr>
+            <input type="text" id="declarant_id" name="declarant_id" readonly value="{{ next_declarant_id }}">
         </div>
 
         <!-- Grid for Declarant Fields -->
@@ -37,22 +37,22 @@
             <div class="input-box">
                 <label for="declarant_name" class="input-label">Declarant Name</label>
                 <br>
-                <input type="text" id="declarant_name" name="declarant_name" required>
+                <input type="text" name="declarant_name" required>
             </div>
             <div class="input-box">
                 <label for="declarant_position" class="input-label">Position</label>
                 <br>
-                <input type="text" id="declarant_position" name="declarant_position" required>
+                <input type="text" name="declarant_position" required>
             </div>
             <div class="input-box">
                 <label for="declarant_agency" class="input-label">Agency</label>
                 <br>
-                <input type="text" id="declarant_agency" name="declarant_agency" required>
+                <input type="text" name="declarant_agency" required>>
             </div>
             <div class="input-box">
                 <label for="declarant_office_address" class="input-label">Office Address</label>
                 <br>
-                <input type="text" id="declarant_office_address" name="declarant_office_address" required>
+                <input type="text" name="declarant_office_address" required>
             </div>
         </div>
 
@@ -63,97 +63,82 @@
             <div class="input-box">
                 <label for="spouse_name" class="input-label">Spouse Name</label>
                 <br>
-                <input type="text" id="spouse_name" name="spouse_name">
+                <input type="text" name="spouse_name">
             </div>
             <div class="input-box">
                 <label for="spouse_position" class="input-label">Spouse Position</label>
                 <br>
-                <input type="text" id="spouse_position" name="spouse_position">
+                <input type="text" name="spouse_position">
             </div>
             <div class="input-box">
                 <label for="spouse_agency" class="input-label">Spouse Agency</label>
                 <br>
-                <input type="text" id="spouse_agency" name="spouse_agency">
+                <input type="text" name="spouse_agency">
             </div>
             <div class="input-box">
                 <label for="spouse_address" class="input-label">Spouse Office Address</label>
                 <br>
-                <input type="text" id="spouse_address" name="spouse_address">
+                <input type="text" name="spouse_address">
             </div>
-        </div>
-        <div class="input-box">
-            <button type="button" id="declarant-submit" class="button_version_1">Submit</button>
         </div>
     </div>
 </section>
 
 
 
- <!-- Children Information Section -->
 <section id="children-info" class="form-section">
-    <form action="/submit-children" method="POST">
-        <div class="section-title-container">
-            <h1 class="section-title">Children Information</h1>
-        </div>
-        <div class="all-inputs-container" id="children-info-container">
+    <div class="section-title-container">
+        <h1 class="section-title">Children Information</h1>
+    </div>
+    <div class="all-inputs-container">
+        <!-- Child Entry Template -->
+        <div class="child-entry">
             <div class="input-box">
-                <label for="c_declarant_id" class="input-label">Declaration ID</label>
-                <input type="text" id="c_declarant_id" name="declarant_id" readonly>
-            </div>
-            <!-- Child No Field -->
-            <div class="input-box">
-                <label for="child_id" class="input-label">Child No</label>
+                <label for="child_row_no[]" class="input-label">Child No</label>
                 <br>
-                <input type="text" id="child_id" name="child_row_no[]">
+                <input type="text" name="child_row_no[]">
             </div>
-
-            <!-- Grid for Other Child Fields -->
             <div class="grid-inputs-container children-fields">
                 <div class="input-box">
-                    <label for="child_name" class="input-label">Name</label>
+                    <label for="child_name[]" class="input-label">Name</label>
                     <br>
-                    <input type="text" id="child_name" name="child_name[]">
+                    <input type="text" name="child_name[]">
                 </div>
                 <div class="input-box">
-                    <label for="child_dob" class="input-label">Birthdate</label>
+                    <label for="child_dob[]" class="input-label">Birthdate</label>
                     <br>
-                    <input type="date" id="child_dob" name="child_dob[]">
+                    <input type="date"  name="child_dob[]">
                 </div>
                 <div class="input-box">
-                    <label for="child_age" class="input-label">Age</label>
+                    <label for="child_age[]" class="input-label">Age</label>
                     <br>
-                    <input type="text" id="child_age" name="child_age[]">
+                    <input type="text" name="child_age[]">
                 </div>
-            </div>            
+            </div>
+            <div class="button-container">
+                <button type="button" class="delete-bt button_version_1" onclick="deleteEntry(this)">Delete Entry</button>
+            </div>
         </div>
+    </div>
 
-        <!-- Add Children Info Button -->
-        <div class="input-box">
-            <button type="button" id="add-child-btn" class="button_version_1">Add Children Info</button>
-        </div>
-        <div class="input-box">
-            <button type="button" id="children-submit" class="button_version_1">Submit</button>
-        </div>
-    </form>
+    <!-- Add Children Info Button -->
+    <div class="input-box">
+        <button type="button" id="add-child-btn" class="button_version_1">Add Children Info</button>
+    </div>
 </section>
 
 
-<!-- Real Assets Section -->
+
 <section id="real-assets" class="form-section">
     <div class="section-title-container">
         <h1 class="section-title">Real Assets</h1>
     </div>
     <div class="all-inputs-container">
-        <div class="input-box">
-            <label for="r_declarant_id" class="input-label">Declaration ID</label>
-            <input type="text" id="r_declarant_id" name="declarant_id" readonly>
-        </div>
-        
         <!-- Real Asset No Field -->
         <div class="input-box">
-            <label for="real_asset_no" class="input-label">Real Asset No</label>
+            <label for="real_asset_row_no" class="input-label">Real Asset No</label>
             <br>
-            <input type="text" id="real_asset_no" name="real_asset_row_no[]">
+            <input type="text"  name="real_asset_row_no[]">
         </div>
         
         <!-- Grid for Other Real Asset Fields -->
@@ -161,57 +146,53 @@
             <div class="input-box">
                 <label for="real_asset_desc" class="input-label">Description</label>
                 <br>
-                <input type="text" id="real_asset_desc" name="real_asset_desc[]">
+                <input type="text"  name="real_asset_desc[]">
             </div>
             <div class="input-box">
                 <label for="real_asset_kind" class="input-label">Kind</label>
                 <br>
-                <input type="text" id="real_asset_kind" name="real_asset_kind[]">
+                <input type="text" name="real_asset_kind[]">
             </div>
             <div class="input-box">
                 <label for="real_asset_loc" class="input-label">Location</label>
                 <br>
-                <input type="text" id="real_asset_loc" name="real_asset_loc[]">
+                <input type="text"  name="real_asset_loc[]">
             </div>
             <div class="input-box">
                 <label for="real_asset_area" class="input-label">Assessed Value</label>
                 <br>
-                <input type="number" id="real_asset_area" name="real_asset_area[]">
+                <input type="number"  name="real_asset_area[]">
             </div>
             <div class="input-box">
                 <label for="real_asset_market_val" class="input-label">Market Value</label>
                 <br>
-                <input type="number" id="real_asset_market_val" name="real_asset_market_val[]">
+                <input type="number"  name="real_asset_market_val[]">
             </div>
             <div class="input-box">
                 <label for="real_asset_year_acq" class="input-label">Year Acquired</label>
                 <br>
-                <input type="date" id="real_asset_year_acq" name="real_asset_year_acq[]">
+                <input type="date"  name="real_asset_year_acq[]">
             </div>
             <div class="input-box">
                 <label for="real_asset_mode_acq" class="input-label">Mode of Acquisition</label>
                 <br>
-                <input type="text" id="real_asset_mode_acq" name="real_asset_mode_acq[]">
+                <input type="text"  name="real_asset_mode_acq[]">
             </div>
             <div class="input-box">
                 <label for="real_asset_acq_cost" class="input-label">Acquisition Cost</label>
                 <br>
-                <input type="number" id="real_asset_acq_cost" name="real_asset_acq_cost[]">
+                <input type="number"  name="real_asset_acq_cost[]">
             </div>
         </div>
-        
+
         <!-- Add Real Asset Button -->
         <div class="input-box">
             <button type="button" id="add-real-asset-btn" class="button_version_1">Add Real Asset</button>
         </div>
-        
-        <!-- Submit Button -->
-        <div class="input-box">
-            <button type="button" id="real-assets-submit" class="button_version_1">Submit</button>
-        </div>
     </div>
 </section>
 
+    
 
 <!-- Personal Assets Section -->
 <section id="personal-assets" class="form-section">
@@ -219,16 +200,11 @@
         <h1 class="section-title">Personal Assets</h1>
     </div>
     <div class="all-inputs-container">
-        <div class="input-box">
-            <label for="p_declarant_id" class="input-label">Declaration ID</label>
-            <input type="text" id="p_declarant_id" name="declarant_id" readonly>
-        </div>
-        
         <!-- Personal Asset No Field -->
         <div class="input-box">
             <label for="personal_asset_row_no" class="input-label">Personal Asset No</label>
             <br>
-            <input type="text" id="personal_asset_row_no" name="personal_asset_row_no[]">
+            <input type="text" name="personal_asset_row_no[]">
         </div>
         
         <!-- Grid for Other Personal Asset Fields -->
@@ -236,133 +212,120 @@
             <div class="input-box">
                 <label for="personal_asset_desc" class="input-label">Description</label>
                 <br>
-                <input type="text" id="personal_asset_desc" name="personal_asset_desc[]">
+                <input type="text"  name="personal_asset_desc[]">
             </div>
             <div class="input-box">
                 <label for="personal_asset_year_acq" class="input-label">Year Acquired</label>
                 <br>
-                <input type="date" id="personal_asset_year_acq" name="personal_asset_year_acq[]">
+                <input type="date" name="personal_asset_year_acq[]">
             </div>
             <div class="input-box">
-                <label for="personal_asset_acq_cost" class="input-label">Acquisition Cost</label>
+                <label for="personal_asset_acq_cost" class="input-label">Aqcuisition Cost</label>
                 <br>
-                <input type="number" id="personal_asset_acq_cost" name="personal_asset_acq_cost[]">
+                <input type="number"  name="personal_asset_acq_cost[]">
             </div>
         </div>
-        
-        <!-- Add Personal Asset Button -->
         <div class="input-box">
             <button type="button" id="add-personal-asset-btn" class="button_version_1">Add Personal Asset</button>
-        </div>
-        
-        <!-- Submit Button -->
-        <div class="input-box">
-            <button type="button" id="personal-assets-submit" class="button_version_1">Submit</button>
         </div>
     </div>
 </section>
 
 
-
-<!-- Liabilities Section -->
 <section id="liabilities" class="form-section">
     <div class="section-title-container">
         <h1 class="section-title">Liabilities</h1>
     </div>
     <div class="all-inputs-container">
-        <div class="input-box">
-            <label for="l_declarant_id" class="input-label">Declaration ID</label>
-            <input type="text" id="l_declarant_id" name="declarant_id" readonly>
-        </div>
-        
-        <!-- Liabilities No Field -->
-        <div class="input-box">
-            <label for="liability_id" class="input-label">Liabilities No</label>
-            <br>
-            <input type="text" id="liability_id" name="liabilities_row_no[]">
-        </div>
-        
-        <!-- Grid for Other Liabilities Fields -->
+        <!-- Grid for Liabilities Fields -->
         <div class="grid-inputs-container liabilities-fields">
             <div class="input-box">
-                <label for="liabilities_desc" class="input-label">Description</label>
+                <label for="liability_desc" class="input-label">Description</label>
                 <br>
-                <input type="text" id="liabilities_desc" name="liabilities_desc[]">
+                <input type="text" name="liabilities_desc[]" required>
             </div>
             <div class="input-box">
-                <label for="liabilities_amount" class="input-label">Creditor</label>
+                <label for="liability_creditor" class="input-label">Creditor</label>
                 <br>
-                <input type="text" id="liabilities_amount" name="liabilities_amount[]">
+                <input type="text" name="liabilities_creditor[]" required>
             </div>
             <div class="input-box">
-                <label for="liabilities_date" class="input-label">Balance</label>
+                <label for="liability_balance" class="input-label">Balance</label>
                 <br>
-                <input type="number" id="liabilities_date" name="liabilities_date[]">
+                <input type="number" name="liabilities_balance[]" required>
             </div>
         </div>
-        
+
         <!-- Add Liability Button -->
         <div class="input-box">
             <button type="button" id="add-liability-btn" class="button_version_1">Add Liability</button>
         </div>
-        
+    </div>
+</section>
+
+
+
+
+
+        <!-- Subtotals and Totals Section -->
+        <section id="subtotals-totals" class="form-section">
+            <div class="section-title-container">
+                <h1 class="section-title">Subtotals and Totals</h1>
+            </div>
+            <div class="all-inputs-container">
+                <div class="grid-inputs-container">
+                    <div class="input-box">
+                        <label for="R_Asset_Subtotal" class="input-label">Real Assets Subtotal</label>
+                        <input type="number" id="R_Asset_Subtotal" name="R_Asset_Subtotal" readonly>
+                    </div>
+                    <div class="input-box">
+                        <label for="P_Asset_Subtotal" class="input-label">Personal Assets Subtotal</label>
+                        <input type="number" id="P_Asset_Subtotal" name="P_Asset_Subtotal" readonly>
+                    </div>
+                    <div class="input-box">
+                        <label for="total_assets" class="input-label">Total Assets</label>
+                        <input type="number" id="total_assets" name="total_assets" readonly>
+                    </div>
+                    <div class="input-box">
+                        <label for="total_liabilities" class="input-label">Total Liabilities</label>
+                        <input type="number" id="total_liabilities" name="total_liabilities" readonly>
+                    </div>
+                    <div class="input-box">
+                        <label for="net_worth" class="input-label">Net Worth</label>
+                        <input type="number" id="net_worth" name="net_worth" readonly>
+                    </div>
+                </div>
+                <!-- Compute Button -->
+                <div class="input-box">
+                    <button type="button" id="compute-button" class="button_version_1">Compute</button>
+                </div>
+            </div>
+        </section>
+
+
+<!-- Confirmation Section -->
+<section id="confirmation" class="form-section">
+    <div class="all-inputs-container">
+        <!-- File Upload for Signature -->
+        <div class="input-box">
+            <label for="declarant_signature" class="input-label">Upload Declarant's Signature</label>
+            <input type="file" id="declarant_signature" name="declarant_signature" accept="image/*,.pdf" required>
+            <small class="input-help">Please upload a file (image or PDF) of the declarant's signature.</small>
+        </div>
+
         <!-- Submit Button -->
         <div class="input-box">
-            <button type="button" id="liabilities-submit" class="button_version_1">Submit</button>
+            <button type="submit">Submit Declaration</button>
         </div>
     </div>
 </section>
-
-
-<!-- Subtotals and Totals Section -->
-<section id="subtotals-totals" class="form-section">
-    <div class="section-title-container">
-        <h1 class="section-title">Subtotals and Totals</h1>
-    </div>
-    <div class="all-inputs-container">
-        <div class="grid-inputs-container">
-            <div class="input-box">
-                <label for="s_declarant_id" class="input-label">Declaration ID</label>
-                <input type="text" id="s_declarant_id" name="declarant_id" readonly fdpr>
-            </div>
-            <div class="input-box">
-                <label for="R_Asset_Subtotal" class="input-label">Real Assets Subtotal</label>
-                <input type="number" id="R_Asset_Subtotal" name="R_Asset_Subtotal" readonly>
-            </div>
-            <div class="input-box">
-                <label for="P_Asset_Subtotal" class="input-label">Personal Assets Subtotal</label>
-                <input type="number" id="P_Asset_Subtotal" name="P_Asset_Subtotal" readonly>
-            </div>
-            <div class="input-box">
-                <label for="total_assets" class="input-label">Total Assets</label>
-                <input type="number" id="total_assets" name="total_assets" readonly>
-            </div>
-            <div class="input-box">
-                <label for="total_liabilities" class="input-label">Total Liabilities</label>
-                <input type="number" id="total_liabilities" name="total_liabilities" readonly>
-            </div>
-            <div class="input-box">
-                <label for="net_worth" class="input-label">Net Worth</label>
-                <input type="number" id="net_worth" name="net_worth" readonly>
-            </div>
-        </div>
-        <!-- Add this button below the grid-inputs-container -->
-        <div class="input-box">
-            <button type="button" id="compute-button" class="button_version_1">Compute</button>
-        </div>
-    </div>
-    <div class="input-box">
-        <button type="button" id="confirm-submission" class="button_version_1">Confirm Submission</button>
-    </div>
-</section>
-
 
 
 <!-- Success Popup -->
 <div id="successPopup" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closePopup()">&times;</span>
-        
+        <p>Declaration submitted successfully!</p>
     </div>
 </div>
 
