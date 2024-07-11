@@ -2,74 +2,114 @@
 
 {% block head %}
 <title>View Database</title>
+<style>
+    body {
+        background-image: url('/static/images/background5.png');
+        background-color: #F8F9FA;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        background-attachment: fixed;
+    }
+
+    .flash-messages-container {
+        width: 80%;
+        margin: 20px auto;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-align: center;
+        font-size: 1.2em;
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .alert-error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+    .alert-warning {
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+    }
+
+    .alert-info {
+        color: #0c5460;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+    }
+
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        margin-top: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        text-align: left;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .nav-links {
+        list-style: none;
+        padding: 0;
+    }
+
+    .nav-links li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #007bff;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
-<style>
-body {
-    background-image: url('/static/images/ApplicationFormBGV2blurryGrain.png');
-    background-color: #F8F9FA;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    background-attachment: fixed;
-}
-</style>
-
-<style>
-/* Modal styles */
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    padding-top: 100px; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-}
-
-.modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-}
-
-.modal-content, #caption {  
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
-
-@keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
-}
-
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
-</style>
-
 <header class="landing_page_header view_database_header">
-    <img src="/static/images/Logo.png" alt="Logo" class="logo">
+    <img src="/static/images/logo.png" alt="Logo" class="logo">
     <nav>
         <ul class="nav-links landing_page_nav_links">
             <li><a href="{{ url_for('index') }}">Return to Landing Page</a></li>
@@ -77,112 +117,159 @@ body {
     </nav>
 </header>
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-
-<div class="main_table">
-    <table>
-        <tr>
-            <th>Declaration ID</th>
-            <th>Declarant Name</th>
-            <th>Position</th>
-            <th>Agency</th>
-            <th>Office Address</th>
-            <th>Spouse Name</th>
-            <th>Spouse Position</th>
-            <th>Spouse Agency</th>
-            <th>Spouse Office Address</th>
-            <th>Child No</th>
-            <th>Child Name</th>
-            <th>Child Birthdate</th>
-            <th>Child Age</th>
-            <th>Real Asset No</th>
-            <th>Real Asset Description</th>
-            <th>Real Asset Kind</th>
-            <th>Real Asset Location</th>
-            <th>Real Asset Assessed Value</th>
-            <th>Real Asset Market Value</th>
-            <th>Real Asset Year Acquired</th>
-            <th>Real Asset Mode of Acquisition</th>
-            <th>Real Asset Acquisition Cost</th>
-            <th>Personal Asset No</th>
-            <th>Personal Asset Description</th>
-            <th>Personal Asset Year Acquired</th>
-            <th>Personal Asset Acquisition Cost</th>
-            <th>Liability No</th>
-            <th>Liability Description</th>
-            <th>Liability Creditor</th>
-            <th>Liability Balance</th>
-            <th>Real Assets Subtotal</th>
-            <th>Personal Assets Subtotal</th>
-            <th>Total Assets</th>
-            <th>Total Liabilities</th>
-            <th>Net Worth</th>
-        </tr>
-        {% for record in data %}
-        <tr>
-            <td>{{ record[0] }}</td>
-            <td>{{ record[1] }}</td>
-            <td>{{ record[2] }}</td>
-            <td>{{ record[3] }}</td>
-            <td>{{ record[4] }}</td>
-            <td>{{ record[5] }}</td>
-            <td>{{ record[6] }}</td>
-            <td>{{ record[7] }}</td>
-            <td>{{ record[8] }}</td>
-            <td>{{ record[9] }}</td>
-            <td>{{ record[10] }}</td>
-            <td>{{ record[11] }}</td>
-            <td>{{ record[12] }}</td>
-            <td>{{ record[13] }}</td>
-            <td>{{ record[14] }}</td>
-            <td>{{ record[15] }}</td>
-            <td>{{ record[16] }}</td>
-            <td>{{ record[17] }}</td>
-            <td>{{ record[18] }}</td>
-            <td>{{ record[19] }}</td>
-            <td>{{ record[20] }}</td>
-            <td>{{ record[21] }}</td>
-            <td>{{ record[22] }}</td>
-            <td>{{ record[23] }}</td>
-            <td>{{ record[24] }}</td>
-            <td>{{ record[25] }}</td>
-            <td>{{ record[26] }}</td>
-            <td>{{ record[27] }}</td>
-            <td>{{ record[28] }}</td>
-            <td>{{ record[29] }}</td>
-            <td>{{ record[30] }}</td>
-            <td>{{ record[31] }}</td>
-            <td>{{ record[32] }}</td>
-            <td>{{ record[33] }}</td>
-            <td>{{ record[34] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <div id="myModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="img01">
-    </div>
-
-    <script>
-        var modal = document.getElementById("myModal");
-        var span = document.getElementsByClassName("close")[0];
-        span.onclick = function() { 
-            modal.style.display = "none";
-        }
-
-        function showImageModal(imgUrl) {
-            var modalImg = document.getElementById("img01");
-            modal.style.display = "block";
-            modalImg.src = imgUrl;
-        }
-    </script>
+<div class="flash-messages-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 </div>
 
+<div class="container">
+    <section id="declarantInfo">
+        <h2>Declarant Information</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>First Name</td>
+                    <td>{{ declarant[1] }}</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>{{ declarant[2] }}</td>
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td>{{ declarant[3] }}</td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>{{ declarant[4] }}</td>
+                </tr>
+                <tr>
+                    <td>Phone Number</td>
+                    <td>{{ declarant[5] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="childrenInfo">
+        <h2>Children Information</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date of Birth</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for child in children %}
+                    <tr>
+                        <td>{{ child[1] }}</td>
+                        <td>{{ child[2] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section id="realAssets">
+        <h2>Real Assets</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Asset Description</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asset in real_assets %}
+                    <tr>
+                        <td>{{ asset[1] }}</td>
+                        <td>{{ asset[2] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section id="personalAssets">
+        <h2>Personal Assets</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Asset Description</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asset in personal_assets %}
+                    <tr>
+                        <td>{{ asset[1] }}</td>
+                        <td>{{ asset[2] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section id="liabilities">
+        <h2>Liabilities</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for liability in liabilities %}
+                    <tr>
+                        <td>{{ liability[1] }}</td>
+                        <td>{{ liability[2] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section id="subtotalsTotals">
+        <h2>Subtotals and Totals</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Real Assets</td>
+                    <td>{{ total_real_assets }}</td>
+                </tr>
+                <tr>
+                    <td>Total Personal Assets</td>
+                    <td>{{ total_personal_assets }}</td>
+                </tr>
+                <tr>
+                    <td>Total Liabilities</td>
+                    <td>{{ total_liabilities }}</td>
+                </tr>
+                <tr>
+                    <td>Net Worth</td>
+                    <td>{{ net_worth }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
 {% endblock %}
