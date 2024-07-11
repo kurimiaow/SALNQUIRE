@@ -237,22 +237,29 @@
         <h1 class="section-title">Liabilities</h1>
     </div>
     <div class="all-inputs-container">
-        <!-- Grid for Liabilities Fields -->
+        <!-- Liabilities No Field -->
+        <div class="input-box">
+            <label for="liabilities_row_no" class="input-label">Liabilities No</label>
+            <br>
+            <input type="text"  name="liabilities_row_no[]">
+        </div>
+        
+        <!-- Grid for Other Liabilities Fields -->
         <div class="grid-inputs-container liabilities-fields">
             <div class="input-box">
                 <label for="liability_desc" class="input-label">Description</label>
                 <br>
-                <input type="text" name="liabilities_desc[]" required>
+                <input type="text"  name="liabilities_desc[]">
             </div>
             <div class="input-box">
-                <label for="liability_creditor" class="input-label">Creditor</label>
+                <label for="liability_creditors" class="input-label">Creditor</label>
                 <br>
-                <input type="text" name="liabilities_creditor[]" required>
+                <input type="text"  name="liabilities_creditor[]">
             </div>
             <div class="input-box">
-                <label for="liability_balance" class="input-label">Balance</label>
+                <label for="liability_balances" class="input-label">Balance</label>
                 <br>
-                <input type="number" name="liabilities_balance[]" required>
+                <input type="number"  name="liabilities_balance[]">
             </div>
         </div>
 
@@ -262,7 +269,6 @@
         </div>
     </div>
 </section>
-
 
 
 
@@ -334,3 +340,4 @@
 
 </body>
 </html>
+
