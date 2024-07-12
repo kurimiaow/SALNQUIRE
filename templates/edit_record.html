@@ -1,0 +1,487 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Declarant Information{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <nav class="navigation-links">
+        <ul>
+            <li><a href="#declarant-info">Declarant Information</a></li>
+            <li><a href="#children-info">Children Information</a></li>
+            <li><a href="#real-assets">Real Assets</a></li>
+            <li><a href="#personal-assets">Personal Assets</a></li>
+            <li><a href="#liabilities">Liabilities</a></li>
+            <li><a href="#subtotals-totals">Subtotals and Totals</a></li>
+            <li><a href="{{ url_for('index') }}">Home Page</a></li>
+        </ul>
+    </nav>
+
+    <form action="{{ url_for('submit_updated_declaration') }}" method="post">
+        <!-- Declarant Information Section -->
+        <section id="declarant-info" class="form-section">
+            <div class="section-title-container">
+                <h1 class="section-title">Declarant Information</h1>
+            </div>
+            <div class="all-inputs-container">
+                <!-- Declaration ID Field -->
+                <div class="input-box">
+                    <label for="declarant_id" class="input-label">Declaration ID</label>
+                    <input type="text" id="declarant_id" name="declarant_id" readonly value="{{ data.declarant_info.declarant_id }}">
+                </div>
+
+                <!-- Grid for Declarant Fields -->
+                <div class="grid-inputs-container declarant-fields">
+                    <div class="input-box">
+                        <label for="declarant_name" class="input-label">Declarant Name</label>
+                        <input type="text" name="declarant_name" value="{{ data.declarant_info.declarant_name }}" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="declarant_position" class="input-label">Position</label>
+                        <input type="text" name="declarant_position" value="{{ data.declarant_info.declarant_position }}" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="declarant_agency" class="input-label">Agency</label>
+                        <input type="text" name="declarant_agency" value="{{ data.declarant_info.declarant_agency }}" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="declarant_office_address" class="input-label">Office Address</label>
+                        <input type="text" name="declarant_office_address" value="{{ data.declarant_info.declarant_office_address }}" required>
+                    </div>
+                </div>
+
+                <!-- Spouse Information Section -->
+                <div class="grid-inputs-container spouse-fields">
+                    <div class="input-box">
+                        <label for="spouse_name" class="input-label">Spouse Name</label>
+                        <input type="text" name="spouse_name" value="{{ data.declarant_info.spouse_name }}">
+                    </div>
+                    <div class="input-box">
+                        <label for="spouse_position" class="input-label">Spouse Position</label>
+                        <input type="text" name="spouse_position" value="{{ data.declarant_info.spouse_position }}">
+                    </div>
+                    <div class="input-box">
+                        <label for="spouse_agency" class="input-label">Spouse Agency</label>
+                        <input type="text" name="spouse_agency" value="{{ data.declarant_info.spouse_agency }}">
+                    </div>
+                    <div class="input-box">
+                        <label for="spouse_address" class="input-label">Spouse Office Address</label>
+                        <input type="text" name="spouse_address" value="{{ data.declarant_info.spouse_address }}">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Children Information Section -->
+        <section id="children-info" class="form-section">
+            <div class="section-title-container">
+                <h1 class="section-title">Children Information</h1>
+            </div>
+            <div class="all-inputs-container" id="children-container">
+                {% for child in data.children %}
+                <div class="child-entry">
+                    <div class="grid-inputs-container children-fields">
+                        <div class="input-box">
+                            <label for="child_name[]" class="input-label">Name</label>
+                            <input type="text" name="child_name[]" value="{{ child.child_name }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="child_dob[]" class="input-label">Birthdate</label>
+                            <input type="date" name="child_dob[]" value="{{ child.child_dob }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="child_age[]" class="input-label">Age</label>
+                            <input type="text" name="child_age[]" value="{{ child.child_age }}">
+                        </div>
+                    </div>
+                    <button type="button" onclick="deleteEntry(this)">Delete</button>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-child-btn">Add Child</button>
+        </section>
+
+        <!-- Real Assets Section -->
+        <section id="real-assets" class="form-section">
+            <div class="section-title-container">
+                <h1 class="section-title">Real Assets</h1>
+            </div>
+            <div class="all-inputs-container" id="real-assets-container">
+                {% for asset in data.real_assets %}
+                <div class="real-asset-entry">
+                    <div class="grid-inputs-container real-asset-fields">
+                        <div class="input-box">
+                            <label for="real_asset_desc[]" class="input-label">Description</label>
+                            <input type="text" name="real_asset_desc[]" value="{{ asset.asset_description }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="real_asset_kind[]" class="input-label">Kind</label>
+                            <input type="text" name="real_asset_kind[]" value="{{ asset.asset_kind }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="real_asset_loc[]" class="input-label">Location</label>
+                            <input type="text" name="real_asset_loc[]" value="{{ asset.asset_location }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="real_asset_area[]" class="input-label">Area</label>
+                            <input type="text" name="real_asset_area[]" value="{{ asset.asset_assessed_value }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="real_asset_market_val[]" class="input-label">Market Value</label>
+                            <input type="text" name="real_asset_market_val[]" value="{{ asset.asset_market_value }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="real_asset_year_acq[]" class="input-label">Year Acquired</label>
+                            <input type="text" name="real_asset_year_acq[]" value="{{ asset.asset_year_acquired }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="real_asset_mode_acq[]" class="input-label">Mode of Acquisition</label>
+                            <input type="text" name="real_asset_mode_acq[]" value="{{ asset.asset_mode_of_acquisition }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="real_asset_acq_cost[]" class="input-label">Acquisition Cost</label>
+                            <input type="text" name="real_asset_acq_cost[]" value="{{ asset.asset_acquisition_cost }}">
+                        </div>
+                    </div>
+                    <button type="button" onclick="deleteEntry(this)">Delete</button>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-real-asset-btn">Add Real Asset</button>
+        </section>
+
+        <!-- Personal Assets Section -->
+        <section id="personal-assets" class="form-section">
+            <div class="section-title-container">
+                <h1 class="section-title">Personal Assets</h1>
+            </div>
+            <div class="all-inputs-container" id="personal-assets-container">
+                {% for asset in data.personal_assets %}
+                <div class="personal-asset-entry">
+                    <div class="grid-inputs-container personal-asset-fields">
+                        <div class="input-box">
+                            <label for="personal_asset_desc[]" class="input-label">Description</label>
+                            <input type="text" name="personal_asset_desc[]" value="{{ asset.personal_asset_description }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="personal_asset_year_acq[]" class="input-label">Year Acquired</label>
+                            <input type="text" name="personal_asset_year_acq[]" value="{{ asset.personal_asset_year_acquired }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="personal_asset_acq_cost[]" class="input-label">Acquisition Cost</label>
+                            <input type="text" name="personal_asset_acq_cost[]" value="{{ asset.personal_asset_acquisition_cost }}">
+                        </div>
+                    </div>
+                    <button type="button" onclick="deleteEntry(this)">Delete</button>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-personal-asset-btn">Add Personal Asset</button>
+        </section>
+
+        <!-- Liabilities Section -->
+        <section id="liabilities" class="form-section">
+            <div class="section-title-container">
+                <h1 class="section-title">Liabilities</h1>
+            </div>
+            <div class="all-inputs-container" id="liabilities-container">
+                {% for liability in data.liabilities %}
+                <div class="liability-entry">
+                    <div class="grid-inputs-container liability-fields">
+                        <div class="input-box">
+                            <label for="liabilities_desc[]" class="input-label">Description</label>
+                            <input type="text" name="liabilities_desc[]" value="{{ liability.liability_description }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="liabilities_creditor[]" class="input-label">Creditor</label>
+                            <input type="text" name="liabilities_creditor[]" value="{{ liability.liability_creditor }}">
+                        </div>
+                        <div class="input-box">
+                            <label for="liabilities_balance[]" class="input-label">Balance</label>
+                            <input type="text" name="liabilities_balance[]" value="{{ liability.liability_balance }}">
+                        </div>
+                    </div>
+                    <button type="button" onclick="deleteEntry(this)">Delete</button>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-liability-btn">Add Liability</button>
+        </section>
+
+        <!-- Subtotals and Totals Section -->
+        <section id="subtotals-totals" class="form-section">
+            <div class="section-title-container">
+                <h1 class="section-title">Subtotals and Totals</h1>
+            </div>
+            <div class="all-inputs-container">
+                <div class="grid-inputs-container subtotals-totals-fields">
+                    <div class="input-box">
+                        <label for="R_Asset_Subtotal" class="input-label">Real Assets Subtotal</label>
+                        <input type="text" name="R_Asset_Subtotal" id="R_Asset_Subtotal" value="{{ data.subtotals_totals.R_Asset_Subtotal }}">
+                    </div>
+                    <div class="input-box">
+                        <label for="P_Asset_Subtotal" class="input-label">Personal Assets Subtotal</label>
+                        <input type="text" name="P_Asset_Subtotal" id="P_Asset_Subtotal" value="{{ data.subtotals_totals.P_Asset_Subtotal }}">
+                    </div>
+                    <div class="input-box">
+                        <label for="total_assets" class="input-label">Total Assets</label>
+                        <input type="text" name="total_assets" id="total_assets" value="{{ data.subtotals_totals.total_assets }}">
+                    </div>
+                    <div class="input-box">
+                        <label for="total_liabilities" class="input-label">Total Liabilities</label>
+                        <input type="text" name="total_liabilities" id="total_liabilities" value="{{ data.subtotals_totals.total_liabilities }}">
+                    </div>
+                    <div class="input-box">
+                        <label for="net_worth" class="input-label">Net Worth</label>
+                        <input type="text" name="net_worth" id="net_worth" value="{{ data.subtotals_totals.net_worth }}">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compute Button -->
+           <div class="form-compute-button">
+                  <button type="button" id="compute-button" class="compute-button">Compute Totals</button>
+           </div>
+
+        <!-- Submit Button -->
+        <div class="form-submit-button">
+            <button type="submit" class="submit-button">Update Declarant Information</button>
+            <button type="button" class="delete-button" onclick="deleteDeclaration()">Delete Declaration</button>
+        </div>
+    </form>
+    {% endblock %}
+    <script>
+
+        
+        // Function to delete an entry
+        function deleteEntry(button) {
+            let entryDiv = button.closest('.child-entry, .real-asset-entry, .personal-asset-entry, .liability-entry');
+            if (entryDiv) {
+                entryDiv.remove();
+            }
+        }
+
+        // Function to add a new child entry
+        document.getElementById('add-child-btn').addEventListener('click', function() {
+            let container = document.getElementById('children-container');
+            let newEntry = document.createElement('div');
+            newEntry.className = 'child-entry';
+            newEntry.innerHTML = `
+                <div class="grid-inputs-container children-fields">
+                    <div class="input-box">
+                        <label for="child_name[]" class="input-label">Name</label>
+                        <input type="text" name="child_name[]">
+                    </div>
+                    <div class="input-box">
+                        <label for="child_dob[]" class="input-label">Birthdate</label>
+                        <input type="date" name="child_dob[]">
+                    </div>
+                    <div class="input-box">
+                        <label for="child_age[]" class="input-label">Age</label>
+                        <input type="text" name="child_age[]">
+                    </div>
+                </div>
+                <button type="button" onclick="deleteEntry(this)">Delete</button>
+            `;
+            container.appendChild(newEntry);
+        });
+
+        // Function to add a new real asset entry
+    document.getElementById('add-real-asset-btn').addEventListener('click', function() {
+        let container = document.getElementById('real-assets-container');
+        let newEntry = document.createElement('div');
+        newEntry.className = 'real-asset-entry';
+        newEntry.innerHTML = `
+            <div class="grid-inputs-container real-asset-fields">
+                <div class="input-box">
+                    <label for="real_asset_desc[]" class="input-label">Description</label>
+                    <input type="text" name="real_asset_desc[]">
+                </div>
+                <div class="input-box">
+                    <label for="real_asset_kind[]" class="input-label">Kind</label>
+                    <input type="text" name="real_asset_kind[]">
+                </div>
+                <div class="input-box">
+                    <label for="real_asset_loc[]" class="input-label">Location</label>
+                    <input type="text" name="real_asset_loc[]">
+                </div>
+                <div class="input-box">
+                    <label for="real_asset_area[]" class="input-label">Area</label>
+                    <input type="text" name="real_asset_area[]">
+                </div>
+                <div class="input-box">
+                    <label for="real_asset_market_val[]" class="input-label">Market Value</label>
+                    <input type="text" name="real_asset_market_val[]">
+                </div>
+                <div class="input-box">
+                    <label for="real_asset_year_acq[]" class="input-label">Year Acquired</label>
+                    <input type="text" name="real_asset_year_acq[]">
+                </div>
+                <div class="input-box">
+                    <label for="real_asset_mode_acq[]" class="input-label">Mode of Acquisition</label>
+                    <input type="text" name="real_asset_mode_acq[]">
+                </div>
+                <div class="input-box">
+                    <label for="real_asset_acq_cost[]" class="input-label">Acquisition Cost</label>
+                    <input type="text" name="real_asset_acq_cost[]">
+                </div>
+            </div>
+            <button type="button" onclick="deleteEntry(this)">Delete</button>
+        `;
+        container.appendChild(newEntry);
+    });
+
+    
+    function deleteDeclaration() {
+    if (confirm("Are you sure you want to delete this declaration? This action cannot be undone.")) {
+        let declarantId = document.getElementById('declarant_id').value;
+        fetch('/delete-declaration/' + declarantId, {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Declaration deleted successfully');
+                window.location.href = '/';  // Redirect to home page
+            } else {
+                alert('Error deleting declaration');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error deleting declaration');
+        });
+    }
+}
+
+    // Function to add a new personal asset entry
+    document.getElementById('add-personal-asset-btn').addEventListener('click', function() {
+        let container = document.getElementById('personal-assets-container');
+        let newEntry = document.createElement('div');
+        newEntry.className = 'personal-asset-entry';
+        newEntry.innerHTML = `
+            <div class="grid-inputs-container personal-asset-fields">
+                <div class="input-box">
+                    <label for="personal_asset_desc[]" class="input-label">Description</label>
+                    <input type="text" name="personal_asset_desc[]">
+                </div>
+                <div class="input-box">
+                    <label for="personal_asset_year_acq[]" class="input-label">Year Acquired</label>
+                    <input type="text" name="personal_asset_year_acq[]">
+                </div>
+                <div class="input-box">
+                    <label for="personal_asset_acq_cost[]" class="input-label">Acquisition Cost</label>
+                    <input type="text" name="personal_asset_acq_cost[]">
+                </div>
+            </div>
+            <button type="button" onclick="deleteEntry(this)">Delete</button>
+        `;
+        container.appendChild(newEntry);
+    });
+
+    // Function to add a new liability entry
+    document.getElementById('add-liability-btn').addEventListener('click', function() {
+        let container = document.getElementById('liabilities-container');
+        let newEntry = document.createElement('div');
+        newEntry.className = 'liability-entry';
+        newEntry.innerHTML = `
+            <div class="grid-inputs-container liability-fields">
+                <div class="input-box">
+                    <label for="liabilities_desc[]" class="input-label">Description</label>
+                    <input type="text" name="liabilities_desc[]">
+                </div>
+                <div class="input-box">
+                    <label for="liabilities_creditor[]" class="input-label">Creditor</label>
+                    <input type="text" name="liabilities_creditor[]">
+                </div>
+                <div class="input-box">
+                    <label for="liabilities_balance[]" class="input-label">Balance</label>
+                    <input type="text" name="liabilities_balance[]">
+                </div>
+            </div>
+            <button type="button" onclick="deleteEntry(this)">Delete</button>
+        `;
+        container.appendChild(newEntry);
+    });
+
+    // Function to compute totals
+    function computeTotals() {
+        let realAssetsSubtotal = 0;
+        let personalAssetsSubtotal = 0;
+        let totalLiabilities = 0;
+
+        // Calculate Real Assets Subtotal
+        document.getElementsByName('real_asset_market_val[]').forEach(function(element) {
+            realAssetsSubtotal += parseFloat(element.value) || 0;
+        });
+
+        // Calculate Personal Assets Subtotal
+        document.getElementsByName('personal_asset_acq_cost[]').forEach(function(element) {
+            personalAssetsSubtotal += parseFloat(element.value) || 0;
+        });
+
+        // Calculate Total Liabilities
+        document.getElementsByName('liabilities_balance[]').forEach(function(element) {
+            totalLiabilities += parseFloat(element.value) || 0;
+        });
+
+        // Calculate Total Assets and Net Worth
+        let totalAssets = realAssetsSubtotal + personalAssetsSubtotal;
+        let netWorth = totalAssets - totalLiabilities;
+
+        // Update the form fields
+        document.getElementById('R_Asset_Subtotal').value = realAssetsSubtotal.toFixed(2);
+        document.getElementById('P_Asset_Subtotal').value = personalAssetsSubtotal.toFixed(2);
+        document.getElementById('total_assets').value = totalAssets.toFixed(2);
+        document.getElementById('total_liabilities').value = totalLiabilities.toFixed(2);
+        document.getElementById('net_worth').value = netWorth.toFixed(2);
+    }
+
+    // Add event listeners to trigger computation
+    document.querySelectorAll('input[name^="real_asset_market_val"], input[name^="personal_asset_acq_cost"], input[name^="liabilities_balance"]').forEach(function(element) {
+        element.addEventListener('input', computeTotals);
+    });
+
+    // Compute totals on page load
+    computeTotals();
+    // Function to compute totals
+function computeTotals() {
+    let realAssetsSubtotal = 0;
+    let personalAssetsSubtotal = 0;
+    let totalLiabilities = 0;
+
+    // Calculate Real Assets Subtotal
+    document.getElementsByName('real_asset_market_val[]').forEach(function(element) {
+        realAssetsSubtotal += parseFloat(element.value) || 0;
+    });
+
+    // Calculate Personal Assets Subtotal
+    document.getElementsByName('personal_asset_acq_cost[]').forEach(function(element) {
+        personalAssetsSubtotal += parseFloat(element.value) || 0;
+    });
+
+    // Calculate Total Liabilities
+    document.getElementsByName('liabilities_balance[]').forEach(function(element) {
+        totalLiabilities += parseFloat(element.value) || 0;
+    });
+
+    // Calculate Total Assets and Net Worth
+    let totalAssets = realAssetsSubtotal + personalAssetsSubtotal;
+    let netWorth = totalAssets - totalLiabilities;
+
+    // Update the form fields
+    document.getElementById('R_Asset_Subtotal').value = realAssetsSubtotal.toFixed(2);
+    document.getElementById('P_Asset_Subtotal').value = personalAssetsSubtotal.toFixed(2);
+    document.getElementById('total_assets').value = totalAssets.toFixed(2);
+    document.getElementById('total_liabilities').value = totalLiabilities.toFixed(2);
+    document.getElementById('net_worth').value = netWorth.toFixed(2);
+}
+
+// Add event listener to the compute button
+document.getElementById('compute-button').addEventListener('click', computeTotals);
+</script>
