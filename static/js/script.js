@@ -93,7 +93,7 @@ function addDynamicFieldsToFormData(formData) {
     liabilityEntries.forEach((entry, index) => {
         formData.append(`liability_${index}_desc`, entry.querySelector('[name="liabilities_desc[]"]').value);
         formData.append(`liability_${index}_creditor`, entry.querySelector('[name="liabilities_amount[]"]').value);
-        formData.append(`liability_${index}_balance`, entry.querySelector('[name="liabilities_date[]"]').value);
+        formData.append(`liability_${index}_balance`, entry.querySelector('[name="liabilities_balance[]"]').value);
     });
 
     // Add subtotals and totals
@@ -387,9 +387,9 @@ function addLiability() {
             <input type="text" name="liabilities_amount[]" required>
         </div>
         <div class="input-box">
-            <label for="liabilities_date" class="input-label">Balance</label>
+            <label for="liabilities_balance" class="input-label">Balance</label>
             <br>
-            <input type="number" name="liabilities_date[]" required>
+            <input type="number" name="liabilities_balance[]" required>
         </div>
     `;
     newLiabilityEntry.appendChild(liabilityFieldsGrid);
@@ -464,7 +464,7 @@ function calculateSubtotalsAndTotals() {
     console.log("Personal assets cost:", personalAssetsCost);
     
     // Calculate total liabilities
-    const totalLiabilities = Array.from(document.getElementsByName('liabilities_date[]'))
+    const totalLiabilities = Array.from(document.getElementsByName('liabilities_balance[]'))
         .reduce((sum, input) => sum + (parseFloat(input.value) || 0), 0);
     console.log("Total liabilities:", totalLiabilities);
 
