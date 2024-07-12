@@ -19,7 +19,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def get_db_connection():
-    conn = sqlite3.connect('saln_database.db')
+    conn = sqlite3.connect('saln_database.db', isolation_level=None)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -204,7 +204,8 @@ def update_record():
         all_data = get_all_declarant_data(declarant_id)
         
         if all_data:
-            return render_template('edit_record.html', data=all_data)
+            # Pass declarant_id directly to the template
+            return render_template('edit_record.html', data=all_data, declarant_id=declarant_id)
         else:
             flash('No matching record found', 'error')
             return redirect(url_for('update_record'))
@@ -317,6 +318,8 @@ def submit_updated_declaration():
     finally:
         if conn:
             conn.close()
+
+
 @app.route('/delete-declaration/<int:declarant_id>', methods=['POST'])
 def delete_declaration(declarant_id):
     conn = None
@@ -324,28 +327,50 @@ def delete_declaration(declarant_id):
         conn = sqlite3.connect('saln_database.db')
         cursor = conn.cursor()
 
-        # Delete from all related tables
-        tables = ['DeclarantInformation', 'ChildrenInformation', 'RealAssets', 
-                  'PersonalAssets', 'Liabilities', 'SubtotalsTotals']
-        
-        for table in tables:
-            cursor.execute(f"DELETE FROM {table} WHERE declarant_id = ?", (declarant_id,))
+        # Verify the declarant exists
+        cursor.execute("SELECT declarant_name FROM DeclarantInformation WHERE declarant_id = ?", (declarant_id,))
+        declarant = cursor.fetchone()
+        if not declarant:
+            flash('No matching record found to delete', 'warning')
+            return redirect(url_for('view_database'))
+
+        declarant_name = declarant[0]
+
+        # Delete from ChildrenInformation
+        cursor.execute("DELETE FROM ChildrenInformation WHERE declarant_id = ?", (declarant_id,))
+
+        # Delete from RealAssets
+        cursor.execute("DELETE FROM RealAssets WHERE declarant_id = ?", (declarant_id,))
+
+        # Delete from PersonalAssets
+        cursor.execute("DELETE FROM PersonalAssets WHERE declarant_id = ?", (declarant_id,))
+
+        # Delete from Liabilities
+        cursor.execute("DELETE FROM Liabilities WHERE declarant_id = ?", (declarant_id,))
+
+        # Delete from SubtotalsTotals
+        cursor.execute("DELETE FROM SubtotalsTotals WHERE declarant_id = ?", (declarant_id,))
+
+        # Finally, delete from DeclarantInformation
+        cursor.execute("DELETE FROM DeclarantInformation WHERE declarant_id = ?", (declarant_id,))
 
         conn.commit()
-        return jsonify({'success': True})
+        flash(f'Record for {declarant_name} (ID: {declarant_id}) deleted successfully', 'success')
 
+    except sqlite3.Error as e:
+        if conn:
+            conn.rollback()
+        flash(f'Error deleting record: {str(e)}', 'error')
     except Exception as e:
         if conn:
             conn.rollback()
-        print(f'Error deleting declaration: {str(e)}')
-        return jsonify({'success': False})
-
+        flash(f'Unexpected error occurred while deleting record: {str(e)}', 'error')
     finally:
         if conn:
             conn.close()
-@app.route('/delete-record')
-def delete_record():
-    return "Delete record page (not implemented)"
+
+    return redirect(url_for('view_database'))
+
 
 @app.route('/compute_values', methods=['POST'])
 def compute_values():
