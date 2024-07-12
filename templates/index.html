@@ -21,15 +21,27 @@
     }
 
     .logo {
-        width: 200px; /* Adjust size as needed */
+        width: 250px; /* Adjust size as needed */
         height: auto; /* Maintain aspect ratio */
         margin-right: 20px; /* Adjust spacing between logo and title */
     }
 
+    
+
     .main-title {
+        font-family: Georgia, serif;
+        font-size: 30px; /* Adjust font size */
+        color: #333; /* Adjust text color */
+        margin: 0; /* Reset margin to zero */
+
+    }
+
+    .main-title1 {
+        font-family: Impact, serif;
         font-size: 36px; /* Adjust font size */
         color: #333; /* Adjust text color */
         margin: 0; /* Reset margin to zero */
+
     }
 
     .nav-links {
@@ -50,27 +62,35 @@
     }
 
     .nav-links li a {
-        transition: all 0.3s ease 0s;
-        color: #5A189A;
-        text-decoration: none;
-    }
+    transition: all 0.3s ease 0s;
+    color: #800000; /* Maroon */
+    text-decoration: none;
+}
 
-    .nav-links li a:hover {
-        color: #5A189A;
-        text-decoration: underline;
-    }
+.nav-links li a:hover {
+    color: #FFD700; /* Gold */
+    text-decoration: underline;
+}
+
+.right-side img {
+            max-width: 100%; /* Ensures the image does not exceed its container width */
+            height: auto; /* Maintains aspect ratio */
+            display: block; /* Ensures the image is centered */
+            margin: auto; /* Centers the image horizontally */
+        }
+
+    
 </style>
 {% endblock %}
 
 {% block content %}
 <header class="landing_page_header">
     <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="Logo" class="logo">
-    <h1 class="main-title">Welcome to SALNQuire!</h1>
+    <h1 class="main-title1">Welcome to SALNQuire!</h1>
     <nav>
         <ul class="nav-links landing_page_nav_links">
-            <li><a class="button_version_1" href="{{ url_for('application_form') }}">Insert New Record</a></li>
-            <li><a class="button_version_1" href="{{ url_for('update_record') }}">Update Record</a></li>
-            <li><a class="button_version_1" href="{{ url_for('delete_record') }}">Delete Record</a></li>
+            <li><a class="button_version_1" href="{{ url_for('application_form') }}">Create New Record</a></li>
+            <li><a class="button_version_1" href="{{ url_for('update_record') }}">Update / Record</a></li>
             <li><a class="button_version_1" href="{{ url_for('view_database') }}">View Database</a></li>
         </ul>
     </nav>
@@ -80,11 +100,19 @@
     <div class="content">
         <div class="left-side">
             <!-- Your main content -->
-            <h1 class="main-title">Manage Your Records Efficiently!</h1>
+            <br> </br>
+            <h1 class="main-title">Empowering Transparency: SALNQuire digitizes accountability for a corruption-free tomorrow.</h1>
+            <br> </br>
+            <p style="text-align: justify; font-weight: bold; color: white; font-family: Verdana, serif;">
+                SALNQuire is an academic initiative by second-year students from the Polytechnic University of the Philippines (PUP). This project focuses on developing a comprehensive Database Management System (DBMS) that mirrors the government's Statement of Assets, Liabilities, and Net Worth (SALN) form. By meticulously replicating the data fields and reporting requirements of the SALN form, students aim to gain hands-on experience in database management and system development.
+            
+                Digitalizing the SALN is crucial for effective data querying and strict enforcement. It ensures public officials are held accountable for their assets and liabilities, playing a vital role in combating corruption.
+            </p>            
         </div>
         <div class="right-side">
-            
+            <img src="{{ url_for('static', filename='images/saln3.png') }}" alt="SALN Image">
         </div>
     </div>
 </div>
+
 {% endblock %}
