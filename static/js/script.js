@@ -155,15 +155,15 @@ function addChild() {
             <input type="text" name="child_name[]" required>
         </div>
         <div class="input-box">
-            <label for="child_dob" class="input-label">Birthdate</label>
-            <br>
-            <input type="date" name="child_dob[]" required>
-        </div>
-        <div class="input-box">
-            <label for="child_age" class="input-label">Age</label>
-            <br>
-            <input type="text" name="child_age[]" required>
-        </div>
+            <label for="child_dob[]" class="input-label">Birthdate</label>
+               <br>
+            <input type="date" name="child_dob[]" onchange="calculateAge(this)">
+       </div>
+       <div class="input-box">
+            <label for="child_age[]" class="input-label">Age</label>
+              <br>
+            <input type="text" name="child_age[]" readonly>
+       </div>
     `;
     newChildEntry.appendChild(childFieldsGrid);
     
