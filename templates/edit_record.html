@@ -249,13 +249,22 @@
            </div>
 
         <!-- Submit Button -->
+         <form> 
         <div class="form-submit-button">
             <button type="submit" class="submit-button">Update Declarant Information</button>
-            <button type="button" class="delete-button" onclick="deleteDeclaration()">Delete Declaration</button>
         </div>
+        </form>
+        <form action="{{ url_for('delete_declaration', declarant_id=declarant_id) }}" method="POST" onsubmit="return confirmDelete();">
+            <button type="submit" class="delete_button">Delete Record</button>
+        </form>
+               
     </form>
     {% endblock %}
     <script>
+
+function confirmDelete() {
+    return confirm("Are you sure you want to delete this record? This action cannot be undone.");
+}
 
         
         // Function to delete an entry
@@ -480,8 +489,43 @@ function computeTotals() {
     document.getElementById('total_assets').value = totalAssets.toFixed(2);
     document.getElementById('total_liabilities').value = totalLiabilities.toFixed(2);
     document.getElementById('net_worth').value = netWorth.toFixed(2);
-}
 
+
+    document.getElementById('deleteDeclaration').addEventListener('click', function() {
+    console.log('Delete button clicked');
+    if (confirm('Are you sure you want to delete this declaration? This action cannot be undone.')) {
+        var declarantId = "{{ data.declarant_info.declarant_id }}";
+        console.log('Deleting declaration with ID:', declarantId);
+        fetch('/delete-declaration/' + declarantId, {
+            method: 'POST',
+        })
+        .then(function(response) {
+            console.log('Response received:', response);
+            return response.json();
+        })
+        .then(function(data) {
+            console.log('Data received:', data);
+            if (data.success) {
+                alert('Declaration deleted successfully');
+                window.location.href = "{{ url_for('index') }}";
+            } else {
+                alert('Error deleting declaration');
+            }
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+            alert('Error deleting declaration');
+        });
+    }
+});
+}
+// Add event listener to the compute button
+document.getElementById('compute-button').addEventListener('click', computeTotals);
+
+function confirmDelete() {
+    return confirm("Are you sure you want to delete this record? This action cannot be undone.");
+}
+</script>
 // Add event listener to the compute button
 document.getElementById('compute-button').addEventListener('click', computeTotals);
 </script>
