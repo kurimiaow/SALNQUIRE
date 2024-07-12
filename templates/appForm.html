@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Declarant Information Form</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/background5.png') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+    </style>
 </head>
 <body>
     <nav class="navigation-links">
@@ -321,7 +331,7 @@
 
         <!-- Submit Button -->
         <div class="input-box">
-            <button type="submit">Submit Declaration</button>
+            <button type="submit" class="button_version_1">Submit Declaration</button>
         </div>
     </div>
 </section>
@@ -340,4 +350,3 @@
 
 </body>
 </html>
-
